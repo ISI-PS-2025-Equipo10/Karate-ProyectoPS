@@ -1,0 +1,16 @@
+18:46:35.573 [main] INFO  com.intuit.karate.Runner - using system property 'karate.env': local
+18:46:35.839 [main] DEBUG com.intuit.karate.Suite - [config] classpath:karate-config.js
+18:46:37.655 [main] DEBUG com.intuit.karate - request:
+1 > GET http://192.168.0.182:8080/parabank/services/bank/login/john/demo
+1 > Accept: application/json
+1 > Host: 192.168.0.182:8080
+1 > Connection: Keep-Alive
+1 > User-Agent: Apache-HttpClient/4.5.13 (Java/17.0.10)
+1 > Accept-Encoding: gzip,deflate
+
+
+18:46:42.697 [main] ERROR com.intuit.karate - org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.0.182:8080 [/192.168.0.182] failed: Connect timed out, http call failed after 5319 milliseconds for url: http://192.168.0.182:8080/parabank/services/bank/login/john/demo
+18:46:42.697 [main] ERROR com.intuit.karate - classpath:org/udea/parabank/login.feature:12
+When method GET
+http call failed after 5319 milliseconds for url: http://192.168.0.182:8080/parabank/services/bank/login/john/demo
+classpath:org/udea/parabank/login.feature:12

@@ -52,7 +52,13 @@ export const config: WebdriverIO.Config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            // Remove this line if it exists:
+            // args: ['--user-data-dir=/path/to/some/dir'],
+            // Or, generate a unique directory per run:
+            args: [`--user-data-dir=/tmp/chrome-profile-${process.pid}`],
+        }
     }],
 
     //

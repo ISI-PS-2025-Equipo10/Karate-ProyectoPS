@@ -6,8 +6,8 @@ describe('My Login application', () => {
     it('should login with valid credentials', async () => {
         await LoginPage.open()
         await LoginPage.login('john', 'demo')
-        await expect(SecurePage.flashAlert).toBeExisting()
-        await expect(SecurePage.flashAlert).toHaveText(
+        await expect(SecurePage.welcomeMessage).toBeExisting()
+        await expect(SecurePage.welcomeMessage).toHaveText(
             expect.stringContaining('Welcome'))
     })
 })

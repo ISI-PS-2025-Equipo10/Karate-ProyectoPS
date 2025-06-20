@@ -27,7 +27,7 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
 });
 </script>
 
-    <title>org.udea.parabank.login</title>
+    <title>org.udea.parabank.accountInfo</title>
   </head>
   <body>
     <div id="root-container">
@@ -50,13 +50,13 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
     <div>Scenarios</div>
   </div>
   <div id="nav-date">
-    <div>2025-06-19 06:17:17 p. m.</div>
+    <div>2025-06-19 06:17:13 p. m.</div>
   </div>
 </div>
 
         <div class="nav-container">
           <div class="nav-item passed">
-            <a href="#[1:8]"><span>[1:8]</span> <span>Customer Login</span></a>
+            <a href="#[1:8]"><span>[1:8]</span> <span>Retrieve account information</span></a>
           </div>
         </div>
       </div>
@@ -65,24 +65,24 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
           <a href="karate-summary.html">Summary</a><span class="feature-label">|</span>
           <a href="karate-tags.html">Tags</a><span class="feature-label">|</span>
           <span class="feature-label">Feature:</span>
-          <span class="feature-path">org/udea/parabank/login.feature</span><span class="feature-label">|</span>
-          <span class="feature-name">Login to Parabank</span>
+          <span class="feature-path">org/udea/parabank/accountInfo.feature</span><span class="feature-label">|</span>
+          <span class="feature-name">Account Information</span>
           <span class="feature-description"></span>
         </div>
         <div class="scenario">
           <div class="scenario-heading" id="[1:8]">
             <div class="heading-container">
               <div class="scenario-tags">
-                <a class="badge badge-primary" href="karate-tags.html">parabank_login</a>
+                <a class="badge badge-primary" href="karate-tags.html">parabank_accountInfo</a>
               </div>
               <div class="scenario-keyword">
                 Scenario: <span>[1:8]</span>
-                <span class="scenario-name">Customer Login</span>
+                <span class="scenario-name">Retrieve account information</span>
                 <span></span>
               </div>
             </div>
             <div class="scenario-time passed">
-              <span>ms:</span>&nbsp;<span>971</span>
+              <span>ms:</span>&nbsp;<span>3168</span>
             </div>
           </div>
           <div class="step-row">
@@ -105,7 +105,7 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
         <span>*</span>&nbsp;<span>url baseUrl</span>
       </div>
     </div>
-    <div class="time-cell passed">1</div>
+    <div class="time-cell passed">5</div>
   </div>
 
    
@@ -133,7 +133,7 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
         <span>*</span>&nbsp;<span>header Accept = &#39;application/json&#39;</span>
       </div>
     </div>
-    <div class="time-cell passed">1</div>
+    <div class="time-cell passed">3</div>
   </div>
 
    
@@ -158,10 +158,10 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
       <div class="step-ref passed">9</div>
       
       <div class="step-cell passed">
-        <span>Given</span>&nbsp;<span>path &#39;login&#39;</span>
+        <span>Given</span>&nbsp;<span>path &#39;customers/12212/accounts&#39;</span>
       </div>
     </div>
-    <div class="time-cell passed">1</div>
+    <div class="time-cell passed">2</div>
   </div>
 
    
@@ -186,10 +186,10 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
       <div class="step-ref passed">10</div>
       
       <div class="step-cell passed">
-        <span>And</span>&nbsp;<span>path &#39;john&#39; //userName</span>
+        <span>When</span>&nbsp;<span>method get</span>
       </div>
     </div>
-    <div class="time-cell passed">4</div>
+    <div class="time-cell passed">2963</div>
   </div>
 
    
@@ -198,64 +198,8 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
 
   
 
-     
-
-  
-
-</div>
-</div>
-          <div><div>
-  
-
-  
-
-  <div class="step-row">
-    <div class="step-container" id="0.11">
-      <div class="step-ref passed">11</div>
-      
-      <div class="step-cell passed">
-        <span>And</span>&nbsp;<span>path &#39;demo&#39; //password</span>
-      </div>
-    </div>
-    <div class="time-cell passed">2</div>
-  </div>
-
-   
-  
-  
-
-  
-
-     
-
-  
-
-</div>
-</div>
-          <div><div>
-  
-
-  
-
-  <div class="step-row">
-    <div class="step-container" id="0.12">
-      <div class="step-ref passed">12</div>
-      
-      <div class="step-cell passed">
-        <span>When</span>&nbsp;<span>method GET</span>
-      </div>
-    </div>
-    <div class="time-cell passed">961</div>
-  </div>
-
-   
-  
-  
-
-  
-
-  <div class="preformatted" data-parent="0.12">18:17:16.912 request:
-1 &gt; GET https://parabank.parasoft.com/parabank/services/bank/login/john/demo
+  <div class="preformatted" data-parent="0.10">18:17:11.141 request:
+1 &gt; GET https://parabank.parasoft.com/parabank/services/bank/customers/12212/accounts
 1 &gt; Accept: application/json
 1 &gt; Host: parabank.parasoft.com
 1 &gt; Connection: Keep-Alive
@@ -263,17 +207,17 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
 1 &gt; Accept-Encoding: gzip,deflate
 
 
-18:17:17.854 response time in milliseconds: 942
+18:17:12.755 response time in milliseconds: 1604
 1 &lt; 200
-1 &lt; Date: Thu, 19 Jun 2025 23:17:17 GMT
+1 &lt; Date: Thu, 19 Jun 2025 23:17:12 GMT
 1 &lt; Content-Type: application/json
 1 &lt; Transfer-Encoding: chunked
 1 &lt; Connection: keep-alive
 1 &lt; Cf-Cache-Status: DYNAMIC
 1 &lt; X-Content-Type-Options: nosniff
 1 &lt; Server: cloudflare
-1 &lt; Cf-Ray: 9526bd314db9a512-MIA
-{&quot;id&quot;:12212,&quot;firstName&quot;:&quot;John&quot;,&quot;lastName&quot;:&quot;Smith&quot;,&quot;address&quot;:{&quot;street&quot;:&quot;1431 Main St&quot;,&quot;city&quot;:&quot;Beverly Hills&quot;,&quot;state&quot;:&quot;CA&quot;,&quot;zipCode&quot;:&quot;90210&quot;},&quot;phoneNumber&quot;:&quot;310-447-4121&quot;,&quot;ssn&quot;:&quot;622-11-9999&quot;}
+1 &lt; Cf-Ray: 9526bd114eff50fd-MIA
+[{&quot;id&quot;:12345,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:-2300.00},{&quot;id&quot;:12456,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:10.45},{&quot;id&quot;:12567,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:100.00},{&quot;id&quot;:12678,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;SAVINGS&quot;,&quot;balance&quot;:-100.00},{&quot;id&quot;:12789,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:100.00},{&quot;id&quot;:12900,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:0.00},{&quot;id&quot;:13011,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:100.00},{&quot;id&quot;:13122,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:1100.00},{&quot;id&quot;:13233,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:100.00},{&quot;id&quot;:13344,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;SAVINGS&quot;,&quot;balance&quot;:1231.10},{&quot;id&quot;:54321,&quot;customerId&quot;:12212,&quot;type&quot;:&quot;CHECKING&quot;,&quot;balance&quot;:1351.12}]
 
 </div>   
 
@@ -287,8 +231,8 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
   
 
   <div class="step-row">
-    <div class="step-container" id="0.13">
-      <div class="step-ref passed">13</div>
+    <div class="step-container" id="0.11">
+      <div class="step-ref passed">11</div>
       
       <div class="step-cell passed">
         <span>Then</span>&nbsp;<span>status 200</span>
@@ -315,14 +259,70 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
   
 
   <div class="step-row">
+    <div class="step-container" id="0.12">
+      <div class="step-ref passed">12</div>
+      
+      <div class="step-cell passed">
+        <span>And</span>&nbsp;<span>match response[*].id != null</span>
+      </div>
+    </div>
+    <div class="time-cell passed">152</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
+    <div class="step-container" id="0.13">
+      <div class="step-ref passed">13</div>
+      
+      <div class="step-cell passed">
+        <span>And</span>&nbsp;<span>match response[*].type != null</span>
+      </div>
+    </div>
+    <div class="time-cell passed">11</div>
+  </div>
+
+   
+  
+  
+
+  
+
+     
+
+  
+
+</div>
+</div>
+          <div><div>
+  
+
+  
+
+  <div class="step-row">
     <div class="step-container" id="0.14">
       <div class="step-ref passed">14</div>
       
       <div class="step-cell passed">
-        <span>And</span>&nbsp;<span>match response contains { id: &#39;#number&#39;, firstName: &#39;#string&#39;, lastName: &#39;#string&#39;,address:{street: &#39;#string&#39;, city: &#39;#string&#39;, state: &#39;#string&#39;, zipCode: &#39;#string&#39;}, phoneNumber: &#39;#string&#39;, ssn: &#39;#string&#39; }</span>
+        <span>And</span>&nbsp;<span>match response[*].balance != null</span>
       </div>
     </div>
-    <div class="time-cell passed">1</div>
+    <div class="time-cell passed">4</div>
   </div>
 
    
@@ -347,10 +347,10 @@ posthog.init('phc_M6fKk3dSX9HjglkqPSybauGas45NINb7EgsPGU8N9g1',{
       <div class="step-ref passed">15</div>
       
       <div class="step-cell passed">
-        <span>And</span>&nbsp;<span>match header Cf-Ray != null</span>
+        <span>And</span>&nbsp;<span>match each response contains { id: &#39;#number&#39;, customerId: &#39;#number&#39;, type: &#39;#string&#39;, balance: &#39;#number&#39; }</span>
       </div>
     </div>
-    <div class="time-cell passed">1</div>
+    <div class="time-cell passed">29</div>
   </div>
 
    

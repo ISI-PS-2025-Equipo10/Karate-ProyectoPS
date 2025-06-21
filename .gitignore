@@ -236,3 +236,4 @@ dist
 
 # other
 allure-results/
+target/

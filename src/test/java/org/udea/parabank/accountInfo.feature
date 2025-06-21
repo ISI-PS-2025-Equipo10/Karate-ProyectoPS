@@ -4,9 +4,10 @@ Feature: Account Information
     Background:
         * url baseUrl
         * header Accept = 'application/json'
+        * def login = call read('login.feature')
     
     Scenario: Retrieve account information
-        Given path 'customers/12212/accounts'
+        Given path 'customers', login.customerId, 'accounts'
         When method get
         Then status 200
         And match response[*].id != null

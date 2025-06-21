@@ -8,9 +8,11 @@ Feature: Account Information
     
     Scenario: Retrieve account information
         Given path 'customers', login.customerId, 'accounts'
-        When method get
+        When method GET
         Then status 200
         And match response[*].id != null
         And match response[*].type != null
         And match response[*].balance != null
         And match each response contains { id: '#number', customerId: '#number', type: '#string', balance: '#number' }
+        * def accounts = karate.map(response, a => ({id: a.id, balance: a.balance}))
+        * print accounts

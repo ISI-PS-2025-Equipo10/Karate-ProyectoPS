@@ -22,6 +22,6 @@ Scenario: Valid loan application
 
   And match response /loanResponse/approved == 'true'
   And match response /loanResponse/loanProviderName contains 'Jiffy'
-  And match response /loanResponse/accountId == '#string'  # puede ser numérico también
+  And match response /loanResponse/accountId == '#string'
 
   * print '✅ Solicitud de préstamo aprobada:', response

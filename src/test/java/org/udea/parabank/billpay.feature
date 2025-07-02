@@ -5,7 +5,7 @@ Background:
   * header Accept = 'application/json'
 
 Scenario: Pay bill with insufficient funds
-  * def accountId = 26109
+  * def accountId = 18117
   * def montoInsuficiente = 1000 
 
   Given path '/billpay'

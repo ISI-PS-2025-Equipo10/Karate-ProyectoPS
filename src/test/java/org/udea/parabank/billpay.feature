@@ -1,4 +1,4 @@
-Feature: Pago fallido por saldo insuficiente
+Feature: Billpay
 
 Background:
   * url baseUrl

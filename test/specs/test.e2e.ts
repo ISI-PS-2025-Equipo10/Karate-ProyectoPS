@@ -51,3 +51,128 @@ describe("Account transfer", () => {
     await expect(TransferPage.successMessage).not.toBeExisting({ wait: 1000 });
   });
 });
+
+
+
+describe("Payments", () => {
+  let accounts: number[];
+
+  before(async () => {
+    await LoginPage.open();
+    if (await LoginPage.btnSubmit.isExisting()) {
+      await LoginPage.login("john", "demo");
+    }
+
+    await OverviewPage.open();
+    console.log(OverviewPage.accounts);
+
+    await expect(await OverviewPage.accounts[0]).toBeExisting();
+    accounts = await OverviewPage.getAccounts();
+    await expect(accounts.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("should allow entering payment details and show confirmation", async () => {
+    await TransferPage.open();
+
+    const amount = 100;
+    const from = accounts[0];
+    const to = accounts[1];
+
+    await TransferPage.amountInput.waitForDisplayed({ timeout: 5000 });
+    await TransferPage.makeTransfer(amount, from, to);
+
+    await expect(TransferPage.successMessage).toBeDisplayed();
+
+    await expect(await TransferPage.amountResult.getText()).toBe(`$${amount.toFixed(2)}`);
+    await expect(await TransferPage.fromAccountIdResult.getText()).toBe(from.toString());
+    await expect(await TransferPage.toAccountIdResult.getText()).toBe(to.toString());
+  });
+
+  it("should show error message on invalid transfer", async () => {
+    await TransferPage.open();
+
+    await TransferPage.amountInput.waitForDisplayed({ timeout: 5000 });
+    await TransferPage.amountInput.setValue("");
+    await TransferPage.submitBtn.click();
+
+    await expect(TransferPage.errorMessage).toBeDisplayed();
+  });
+});
+
+
+
+
+  describe("Loan request", () => {
+  let accounts: number[];
+
+  before(async () => {
+    await LoginPage.open();
+    if (await LoginPage.btnSubmit.isExisting()) {
+      await LoginPage.login("john", "demo");
+    }
+
+
+    await OverviewPage.open();
+    console.log(OverviewPage.accounts);
+
+    await expect(await OverviewPage.accounts[0]).toBeExisting();
+    accounts = await OverviewPage.getAccounts();
+    await expect(accounts.length).toBeGreaterThanOrEqual(2);
+  });
+
+  //
+  // ✅ Caso de aprobación
+  //
+  it("should approve loan with valid loanAmount and down payment", async () => {
+    const fromAccount = accounts[0];
+    await SecurePage.open();
+    await SecurePage.requestLoan(1000, 100, fromAccount);
+
+    await browser.waitUntil(
+      async () =>
+        (await SecurePage.loanApprovedMsg.isDisplayed()) ||
+        (await SecurePage.loanDeniedMsg.isDisplayed()) ||
+        (await SecurePage.loanErrorPanel.isDisplayed()),
+      {
+        timeout: 5000,
+        timeoutMsg: "Expected result message to appear",
+      }
+    );
+
+    await expect(SecurePage.loanApprovedMsg).toBeDisplayed();
+    const msg = await SecurePage.loanApprovedMsg.getText();
+    await expect(msg).toContain("Congratulations");
+  });
+
+  it("should deny loan: insufficient funds for the given down payment", async () => {
+    const fromAccount = accounts[0];
+    await SecurePage.open();
+    await SecurePage.requestLoan(1000, 999999, fromAccount); 
+
+    await browser.waitUntil(
+      async () => (await $('#loanRequestDenied')).isDisplayed(),
+      { timeout: 5000, timeoutMsg: "Expected denial message to appear" }
+    );
+
+    const msg = await $('#loanRequestDenied p.error').getText();
+    await expect(msg).toContain('You do not have sufficient funds for the given down payment.');
+  });
+
+  it("should deny loan: insufficient funds and down payment", async () => {
+    const fromAccount = accounts[0];
+    await SecurePage.open();
+    await SecurePage.requestLoan(999999, 10, fromAccount);
+
+    await browser.waitUntil(
+      async () => (await $('#loanRequestDenied')).isDisplayed(),
+      { timeout: 5000, timeoutMsg: "Expected denial message to appear" }
+    );
+
+    const msg = await $('#loanRequestDenied p.error').getText();
+    await expect(msg).toContain('We cannot grant a loan in that amount with your available funds and down payment.');
+  });
+});
+
+
+
+

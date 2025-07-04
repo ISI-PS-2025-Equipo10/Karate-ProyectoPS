@@ -101,7 +101,6 @@ describe("Payments", () => {
 
 
 
-
   describe("Loan request", () => {
   let accounts: number[];
 
@@ -120,9 +119,6 @@ describe("Payments", () => {
     await expect(accounts.length).toBeGreaterThanOrEqual(2);
   });
 
-  //
-  // ✅ Caso de aprobación
-  //
   it("should approve loan with valid loanAmount and down payment", async () => {
     const fromAccount = accounts[0];
     await SecurePage.open();

@@ -19,7 +19,9 @@ class LoginPage extends Page {
     public get btnSubmit () {
         return $('/html/body/div[1]/div[3]/div[1]/div/form/div[3]/input');
     }
-
+    public get errorMessage (){
+        return $('/html/body/div[1]/div[3]/div[2]/p');
+    }
     /**
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password

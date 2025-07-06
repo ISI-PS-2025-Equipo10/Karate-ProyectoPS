@@ -165,7 +165,7 @@ describe("Payments", () => {
     );
 
     const msg = await $('#loanRequestDenied p.error').getText();
-    await expect(msg).toContain('We cannot grant a loan in that amount with your available funds and down payment.');
+    await expect(msg).toContain('We cannot grant a loan in that amount with your available funds.');
   });
 });
 

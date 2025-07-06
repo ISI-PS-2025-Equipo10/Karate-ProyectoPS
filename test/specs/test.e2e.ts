@@ -21,7 +21,7 @@ describe("My Login application", () => {
     await LoginPage.login("invalidUser", "invalidPassword");
     await expect(LoginPage.errorMessage).toBeExisting();
     await expect(LoginPage.errorMessage).toHaveText(
-      expect.stringContaining("The username and password could not be verified"),
+      expect.stringContaining("An internal error has occurred and has been logged."),
     );
   });
 });

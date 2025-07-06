@@ -3,6 +3,8 @@ import LoginPage from "../pageobjects/login.page.js";
 import SecurePage from "../pageobjects/secure.page.js";
 import OverviewPage from "../pageobjects/overview.page.js";
 import TransferPage from "../pageobjects/transfer.page.js";
+import accountDetailsPage from "../pageobjects/accountDetails.page.js";
+import overviewPage from "../pageobjects/overview.page.js";
 
 describe("My Login application", () => {
   it("should login with valid credentials", async () => {
@@ -13,7 +15,55 @@ describe("My Login application", () => {
       expect.stringContaining("Welcome"),
     );
   });
+  it("should not login with invalid credentials", async () => {
+    await overviewPage.logout();
+    await LoginPage.open();
+    await LoginPage.login("invalidUser", "invalidPassword");
+    await expect(LoginPage.errorMessage).toBeExisting();
+    await expect(LoginPage.errorMessage).toHaveText(
+      expect.stringContaining("The username and password could not be verified"),
+    );
+  });
 });
+describe("Account consultation", () => {
+  let accounts: number[];
+
+  before(async () => {
+    await LoginPage.open();
+    const notLoggedIn = await LoginPage.btnSubmit.isExisting();
+    if (notLoggedIn) {
+      await LoginPage.login("john", "demo");
+    }
+
+    await OverviewPage.open();
+    console.log(OverviewPage.accounts);
+
+    await expect(await OverviewPage.accounts[1]).toBeExisting();
+    accounts = await OverviewPage.getAccounts();
+  });
+  it("should display accounts", async () => {
+    await OverviewPage.open();
+    await expect(OverviewPage.accounts[0]).toBeExisting();
+    await expect(accounts.length).toBeGreaterThanOrEqual(2);
+  });
+  it("should display account balance", async () => {
+    await OverviewPage.open();
+    await expect(OverviewPage.accounts[0]).toBeExisting();
+
+    const balance = await OverviewPage.getAccountBalance(accounts[0]);
+    console.log(`Account ${accounts[0]} balance: $${balance}`);
+    await expect(typeof balance).toBe('number');
+  });
+  it("should open account details", async () => {
+    await OverviewPage.open();
+    await expect(OverviewPage.accounts[0]).toBeExisting();
+    await OverviewPage.openAccout(accounts[0]);
+    await expect(accountDetailsPage.accountId).toBeExisting();
+    await expect(accountDetailsPage.accountId).toHaveText(
+      expect.stringContaining(accounts[0].toString()),
+    );
+  });
+})
 
 describe("Account transfer", () => {
   let accounts: number[];

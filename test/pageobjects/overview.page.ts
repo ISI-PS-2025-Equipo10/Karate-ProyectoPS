@@ -4,11 +4,21 @@ class OverviewPage extends Page {
   public get accounts() {
     return $$("//table//a");
   }
+  public async logout() {
+    const logoutButton= await $("/html/body/div[1]/div[3]/div[1]/ul/li[8]/a")
+    return logoutButton.click();
+  }
 
   public async getAccountBalance(accountId: number): Promise<number> {
-    const accountExists = await this.accounts.some(
-      async (e) => (await e.getText()) === accountId.toString(),
-    );
+    const accountsArray = await this.accounts;
+    const accountTexts: string[] = [];
+    
+    for (const account of accountsArray) {
+      const text = await account.getText();
+      accountTexts.push(text);
+    }
+    
+    const accountExists = accountTexts.includes(accountId.toString());
 
     if (!accountExists) {
       return Promise.reject(`Account ${accountId} does not exist.`);
@@ -24,6 +34,24 @@ class OverviewPage extends Page {
 
   public async getAccounts(): Promise<number[]> {
     return await this.accounts.map((a) => a.getText().then((t) => parseInt(t)));
+  }
+  public async openAccout(accountId: number) {
+    const accountsArray = await this.accounts;
+    const accountTexts: string[] = [];
+    
+    for (const account of accountsArray) {
+      const text = await account.getText();
+      accountTexts.push(text);
+    }
+    
+    const accountExists = accountTexts.includes(accountId.toString());
+
+    if (!accountExists) {
+      return Promise.reject(`Account ${accountId} does not exist.`);
+    }
+
+    const el = await $(`//table//a[text()='${accountId}']`);
+    return el.click();
   }
 
   public open() {

@@ -5,6 +5,8 @@ import OverviewPage from "../pageobjects/overview.page.js";
 import TransferPage from "../pageobjects/transfer.page.js";
 import accountDetailsPage from "../pageobjects/accountDetails.page.js";
 import overviewPage from "../pageobjects/overview.page.js";
+import PaymentsPage from '../pageobjects/payments.page.ts';
+
 
 describe("My Login application", () => {
   it("should login with valid credentials", async () => {
@@ -21,10 +23,12 @@ describe("My Login application", () => {
     await LoginPage.login("invalidUser", "invalidPassword");
     await expect(LoginPage.errorMessage).toBeExisting();
     await expect(LoginPage.errorMessage).toHaveText(
-      expect.stringContaining("An internal error has occurred and has been logged."),
+      expect.stringContaining("The username and password could not be verified."),
     );
   });
 });
+
+
 describe("Account consultation", () => {
   let accounts: number[];
 
@@ -65,6 +69,7 @@ describe("Account consultation", () => {
   });
 })
 
+
 describe("Account transfer", () => {
   let accounts: number[];
 
@@ -103,52 +108,102 @@ describe("Account transfer", () => {
 });
 
 
-
 describe("Payments", () => {
-  let accounts: number[];
-
   before(async () => {
     await LoginPage.open();
-    if (await LoginPage.btnSubmit.isExisting()) {
+    const notLoggedIn = await LoginPage.btnSubmit.isExisting();
+    if (notLoggedIn) {
       await LoginPage.login("john", "demo");
     }
-
-    await OverviewPage.open();
-    console.log(OverviewPage.accounts);
-
-    await expect(await OverviewPage.accounts[0]).toBeExisting();
-    accounts = await OverviewPage.getAccounts();
-    await expect(accounts.length).toBeGreaterThanOrEqual(2);
   });
 
-  it("should allow entering payment details and show confirmation", async () => {
-    await TransferPage.open();
+  it("should allow entering beneficiary account and payment amount", async () => {
+    await PaymentsPage.open();
 
-    const amount = 100;
-    const from = accounts[0];
-    const to = accounts[1];
+    await PaymentsPage.fillPaymentForm({
+      name: "Carlos Pérez",
+      address: "Cra 45 #123",
+      city: "Bogotá",
+      state: "Cundinamarca",
+      zipCode: "110111",
+      phone: "3114567890",
+      account: "12345",
+      verifyAccount: "12345",
+      amount: "50000"
+    });
 
-    await TransferPage.amountInput.waitForDisplayed({ timeout: 5000 });
-    await TransferPage.makeTransfer(amount, from, to);
+    console.log("Confirmación de datos antes de enviar:");
+    console.log("Cuenta beneficiario:", await PaymentsPage.accountInput.getValue());
+    console.log("Monto:", await PaymentsPage.amountInput.getValue());
 
-    await expect(TransferPage.successMessage).toBeDisplayed();
+    await PaymentsPage.submitPayment();
 
-    await expect(await TransferPage.amountResult.getText()).toBe(`$${amount.toFixed(2)}`);
-    await expect(await TransferPage.fromAccountIdResult.getText()).toBe(from.toString());
-    await expect(await TransferPage.toAccountIdResult.getText()).toBe(to.toString());
+    await PaymentsPage.resultPanel.waitForDisplayed({ timeout: 5000 });
+    await expect(PaymentsPage.resultPanel).toBeDisplayed();
+    await expect(PaymentsPage.resultPayeeName).toHaveText("Carlos Pérez");
+    await expect(PaymentsPage.resultAmount).toHaveText("$50000.00");
   });
 
-  it("should show error message on invalid transfer", async () => {
-    await TransferPage.open();
+  it("should show error if account number is missing", async () => {
+    await PaymentsPage.open();
 
-    await TransferPage.amountInput.waitForDisplayed({ timeout: 5000 });
-    await TransferPage.amountInput.setValue("");
-    await TransferPage.submitBtn.click();
+    await PaymentsPage.fillPaymentForm({
+      name: "Error Test",
+      address: "Calle 10",
+      city: "Medellín",
+      state: "Antioquia",
+      zipCode: "050001",
+      phone: "3121234567",
+      account: "",
+      verifyAccount: "12345",
+      amount: "10000"
+    });
 
-    await expect(TransferPage.errorMessage).toBeDisplayed();
+    await PaymentsPage.submitPayment();
+
+    await expect(PaymentsPage.errorAccountEmpty).toBeDisplayed();
+  });
+
+  it("should show error if amount is invalid", async () => {
+    await PaymentsPage.open();
+
+    await PaymentsPage.fillPaymentForm({
+      name: "Invalid Amount",
+      address: "Calle 10",
+      city: "Medellín",
+      state: "Antioquia",
+      zipCode: "050001",
+      phone: "3121234567",
+      account: "12345",
+      verifyAccount: "12345",
+      amount: "abc"
+    });
+
+    await PaymentsPage.submitPayment();
+
+    await expect(PaymentsPage.errorAmountInvalid).toBeDisplayed();
+  });
+
+  it("should show error if account verification fails", async () => {
+    await PaymentsPage.open();
+
+    await PaymentsPage.fillPaymentForm({
+      name: "Mismatch",
+      address: "Calle 10",
+      city: "Cali",
+      state: "Valle",
+      zipCode: "760001",
+      phone: "3109999999",
+      account: "12345",
+      verifyAccount: "54321",
+      amount: "30000"
+    });
+
+    await PaymentsPage.submitPayment();
+
+    await expect(PaymentsPage.errorVerifyAccountMismatch).toBeDisplayed();
   });
 });
-
 
 
   describe("Loan request", () => {

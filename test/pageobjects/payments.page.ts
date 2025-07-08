@@ -2,7 +2,7 @@ import { $ } from '@wdio/globals';
 import Page from './page.js';
 
 class PaymentsPage extends Page {
-  // Inputs principales
+
   public get nameInput() {
     return $("//input[@name='payee.name']");
   }
@@ -47,7 +47,6 @@ class PaymentsPage extends Page {
     return $("//input[@type='button' and @value='Send Payment']");
   }
 
-  // Resultados
   public get resultPanel() {
     return $("//div[@id='billpayResult']");
   }
@@ -64,7 +63,6 @@ class PaymentsPage extends Page {
     return $("//span[@id='fromAccountId']");
   }
 
-  // Mensajes de error
   public get errorAccountEmpty() {
     return $("//span[@id='validationModel-account-empty']");
   }
@@ -77,7 +75,6 @@ class PaymentsPage extends Page {
     return $("//span[@id='validationModel-verifyAccount-mismatch']");
   }
 
-  // Método para llenar el formulario completo
   public async fillPaymentForm({
     name,
     address,
@@ -113,12 +110,10 @@ class PaymentsPage extends Page {
     await this.fromAccountSelect.selectByIndex(fromIndex);
   }
 
-  // Método para enviar el formulario
   public async submitPayment() {
     await this.sendPaymentButton.click();
   }
 
-  // Abrir la página directamente
   public open() {
     return super.open('billpay.htm');
   }

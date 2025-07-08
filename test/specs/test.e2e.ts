@@ -148,7 +148,7 @@ describe("Payments", () => {
     await PaymentsPage.open();
 
     await PaymentsPage.fillPaymentForm({
-      name: "Error Test",
+      name: "Carlos Pérez",
       address: "Calle 10",
       city: "Medellín",
       state: "Antioquia",
@@ -168,7 +168,7 @@ describe("Payments", () => {
     await PaymentsPage.open();
 
     await PaymentsPage.fillPaymentForm({
-      name: "Invalid Amount",
+      name: "Carlos Pérez",
       address: "Calle 10",
       city: "Medellín",
       state: "Antioquia",
@@ -188,7 +188,7 @@ describe("Payments", () => {
     await PaymentsPage.open();
 
     await PaymentsPage.fillPaymentForm({
-      name: "Mismatch",
+      name: "Carlos Pérez",
       address: "Calle 10",
       city: "Cali",
       state: "Valle",

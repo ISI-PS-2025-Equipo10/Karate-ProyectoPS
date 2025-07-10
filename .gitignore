@@ -236,4 +236,5 @@ dist
 
 # other
 allure-results/
+allure-report/
 target/

@@ -4,7 +4,7 @@ function fn() {
   // karate.configure('abortSuiteOnFailure', true);
 
   protocol = "https";
-  server = "parabank.parasoft.com";
+  server = "para.testar.org";
 
   var config = {
     baseUrl: protocol + "://" + server + "/parabank/services/bank",

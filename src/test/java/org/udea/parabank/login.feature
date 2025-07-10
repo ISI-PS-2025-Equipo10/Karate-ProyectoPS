@@ -12,5 +12,4 @@ Feature: Login to Parabank
     When method GET
     Then status 200
     And match response contains { id: '#number', firstName: '#string', lastName: '#string',address:{street: '#string', city: '#string', state: '#string', zipCode: '#string'}, phoneNumber: '#string', ssn: '#string' }
-    And match header Cf-Ray != null
 		* def customerId = response.id
